@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 public class DAO {
 
-    private ArrayList<String> data = new ArrayList<>();
-    private String name;
-    private String start;
     private Repository repository;
     private Formatter formatter;
 

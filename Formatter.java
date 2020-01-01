@@ -12,8 +12,7 @@ public class Formatter {
         starttime = startarray[3];
         String year = startarray[4];
 
-        String date = "LOG DATE - " + day + "/" + month + "/" + year + ", " + starttime;
-        return date;
+        return "LOG DATE - " + day + "/" + month + "/" + year + ", " + starttime;
     }
 
     public String nameFormatter(String name) {
@@ -29,32 +28,22 @@ public class Formatter {
         String time = addSecondsToTime(starttime,linearray[0]);
         String message = linearray[1].split("]: ",2)[1];
 
-        String output = time + " - " + message;
-        return output;
+        return time + " - " + message;
     }
 
     public String addSecondsToTime(String stringtime, String stringseconds) {
         String[] timearray = stringtime.split(":", 0);
-        Integer hours = Integer.parseInt(timearray[0]);
-        Integer minutes = Integer.parseInt(timearray[1]);
-        Integer seconds = Integer.parseInt(timearray[2]);
-        Integer timestamp = Integer.parseInt(stringseconds);
+        int hours = Integer.parseInt(timearray[0]);
+        int minutes = Integer.parseInt(timearray[1]);
+        int seconds = Integer.parseInt(timearray[2]);
+        int timestamp = Integer.parseInt(stringseconds);
 
         seconds = seconds+timestamp;
-        while (seconds>=60) {
-            seconds = seconds-60;
-            minutes = minutes+1;
-        }
-        while (minutes>=60) {
-            minutes = minutes-60;
-            hours = hours+1;
-        }
-        while (hours>=24) {
-            hours = hours-24;
-        }
+        hours = ((seconds/3600)+hours)%24;
+        minutes = ((seconds/60)+minutes)%60;
+        seconds = seconds%60;
 
-        String output = String.format("%02d", hours) + ":" + String.format("%02d",minutes) + ":" + String.format("%02d",seconds);
-        return output;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
     public String getMonthNumber(String month) {
