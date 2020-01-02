@@ -36,12 +36,27 @@ public class Formatter {
         int hours = Integer.parseInt(timearray[0]);
         int minutes = Integer.parseInt(timearray[1]);
         int seconds = Integer.parseInt(timearray[2]);
-        int timestamp = Integer.parseInt(stringseconds);
+        int secondsbank = Integer.parseInt(stringseconds);
 
-        seconds = seconds+timestamp;
-        hours = ((seconds/3600)+hours)%24;
-        minutes = ((seconds/60)+minutes)%60;
-        seconds = seconds%60;
+        int hourstoadd = (secondsbank/3600);
+        hours = hours+hourstoadd;
+        secondsbank = secondsbank%3600;
+
+        int minutestoadd = (secondsbank/60);
+        minutes = minutes+minutestoadd;
+        secondsbank = secondsbank%60;
+
+        seconds = seconds+secondsbank;
+
+        while (seconds>=60) {
+            seconds -= 60;
+            minutes += 1;
+        }
+        while (minutes>=60) {
+            minutes -= 60;
+            hours += 1;
+        }
+        hours = hours%24;
 
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
